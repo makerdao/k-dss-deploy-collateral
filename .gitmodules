@@ -1,0 +1,3 @@
+[submodule "dss-deploy"]
+	path = dss-deploy
+	url = https://github.com/makerdao/dss-deploy.git
