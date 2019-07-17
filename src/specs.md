@@ -13,6 +13,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+GemJoin4 acts
 ```act
 behaviour make of GemJoin4
 interface make(address usr)
@@ -26,4 +28,21 @@ storage
 iff
   VCallValue == 0
   Bag == 0
+```
+
+GNT acts
+```act
+behaviour totalSupply of GNT
+interface totalSupply()
+
+types:
+  Supply : uint256
+
+storage:
+  3 |-> Supply
+
+iff
+  VCallValue == 0
+
+returns Supply
 ```
