@@ -17,3 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 syntax Int ::= "#GemJoin4.bags" "[" Int "]" [function]
 rule #GemJoin4.bags[A] => #hashedLocation("Solidity", 4, A)
 ```
+
+```k
+syntax Int ::= "#GNT.balances" "[" Int "]" [function]
+rule #GNT.balances[A] => #hashedLocation("Solidity", 4, A)
+```

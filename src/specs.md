@@ -46,3 +46,64 @@ iff
 
 returns Supply
 ```
+
+```act
+behaviour balanceOf of GNT
+interface balanceOf(address src)
+
+types
+  Balance : uint256
+
+storage
+  balances[src] |-> Balance
+
+iff
+  VCallValue == 0
+
+returns Balance
+```
+
+```act
+behaviour transfer of GNT
+interface transfer(address dst, uint wad)
+
+types
+  SrcBalance : uint256
+  DstBalance : uint256
+
+storage
+  balances[CALLER_ID] |-> SrcBalance => SrcBalance - wad
+  balances[dst] |-> DstBalance => DstBalance + wad
+
+iff in range uint256
+  SrcBalance - wad
+  DstBalance + wad
+
+iff
+  VCallValue == 0
+
+if
+  dst =/= CALLER_ID
+
+returns 1
+```
+
+```act
+behaviour transfer-self of GNT
+interface transfer(address dst, uint wad)
+
+types
+  Balance : uint256
+
+storage
+  balances[dst] |-> Balance => Balance
+
+iff
+  wad <= Balance
+  VCallValue == 0
+
+if
+  dst == CALLER_ID
+
+returns 1
+```
