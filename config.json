@@ -17,6 +17,9 @@
     },
     "GNT": {
       "src": "src/tokens.sol"
+    },
+    "Vat": {
+      "src": "lib/dss/src/vat.sol"
     }
   },
   "dapp_root": "dss-deploy"
