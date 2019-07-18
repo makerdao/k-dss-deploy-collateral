@@ -47,7 +47,7 @@ storage
   1 |-> Lad
   2 |-> Gem
 
-storage GNT
+storage Gem
   balances[ACCT_ID] |-> SrcBalance => SrcBalance - wad
   balances[usr] |-> DstBalance => DstBalance + wad
 
