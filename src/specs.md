@@ -30,6 +30,43 @@ iff
   Bag == 0
 ```
 
+GemBag acts
+```act
+behaviour exit of GemBag
+interface exit(address usr, uint256 wad)
+
+types
+  Ada : address
+  Lad : address
+  Gem : address GNT
+  SrcBalance : uint256
+  DstBalance : uint256
+
+storage
+  0 |-> Ada
+  1 |-> Lad
+  2 |-> Gem
+
+storage GNT
+  balances[ACCT_ID] |-> SrcBalance => SrcBalance - wad
+  balances[usr] |-> DstBalance => DstBalance + wad
+
+iff in range uint256
+  SrcBalance - wad
+  DstBalance + wad
+
+iff
+  VCallValue == 0
+  VCallDepth < 1024
+  (CALLER_ID == Ada) or (CALLER_ID == Lad)
+
+if
+  usr =/= ACCT_ID 
+
+calls
+  GNT.transfer  
+```
+
 GNT acts
 ```act
 behaviour totalSupply of GNT

@@ -12,6 +12,9 @@
     "GemJoin4": {
       "src": "src/join.sol"
     },
+    "GemBag": {
+      "src": "src/join.sol"
+    },
     "GNT": {
       "src": "src/tokens.sol"
     }
