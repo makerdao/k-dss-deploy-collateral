@@ -30,6 +30,58 @@ iff
   Bag == 0
 ```
 
+```act
+behaviour join of GemJoin4
+interface join(address urn, uint256 wad) of GemJoin4
+```
+
+```act
+behaviour exit of GemJoin4
+interface exit(address usr, uint256 wad)
+
+types
+  Vat : address Vat
+  Ilk : bytes32
+  Gem : address GNT
+  May : uint256
+  GemBalance : uint256
+  SrcBalance : uint256
+  DstBalance : uint256
+
+storage
+  0 |-> Vat
+  1 |-> Ilk
+  2 |-> Gem
+
+storage Vat
+  wards[ACCT_ID]      |-> May
+  gem[Ilk][CALLER_ID] |-> GemBalance => GemBalance - wad
+
+storage Gem
+  balances[ACCT_ID] |-> SrcBalance => SrcBalance - wad
+  balances[usr] |-> DstBalance => DstBalance + wad
+
+iff in range int256
+  wad
+  GemBalance - wad
+
+iff in range uint256
+  SrcBalance - wad
+  DstBalance + wad
+
+iff
+  VCallValue == 0
+  VCallDepth < 1024
+  May == 1
+
+if
+  usr =/= ACCT_ID
+
+calls
+  Vat.slip
+  GNT.transfer
+```
+
 GemBag acts
 ```act
 behaviour exit of GemBag
