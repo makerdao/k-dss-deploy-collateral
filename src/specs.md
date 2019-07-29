@@ -63,6 +63,7 @@ storage Gem
 
 iff in range int256
   wad
+  0 - wad
   GemBalance - wad
 
 iff in range uint256

@@ -25,3 +25,7 @@ rule chop(A +Int (pow256 +Int B)) <Int A => 0 <=Int A +Int B
   andBool #rangeSInt(256, B)
   andBool B <Int 0
 ```
+
+```k
+//For negation
+```
