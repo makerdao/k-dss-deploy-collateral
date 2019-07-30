@@ -66,11 +66,11 @@ storage Gem
 
 iff in range int256
   wad
-  GemBalance + wad
 
 iff in range uint256
   BagBalance - wad
   JoinBalance + wad
+  GemBalance + wad
 
 iff
   VCallValue == 0
@@ -113,19 +113,16 @@ storage Gem
   balances[ACCT_ID] |-> SrcBalance => SrcBalance - wad
   balances[usr]     |-> DstBalance => DstBalance + wad
 
-iff in range int256
-  wad
-  0 - wad
-  GemBalance - wad
-
 iff in range uint256
   SrcBalance - wad
   DstBalance + wad
+  GemBalance - wad
 
 iff
   VCallValue == 0
   VCallDepth < 1024
   May == 1
+  wad <= maxSInt256
 
 if
   usr =/= ACCT_ID
