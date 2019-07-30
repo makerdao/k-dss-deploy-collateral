@@ -33,6 +33,58 @@ iff
 ```act
 behaviour join of GemJoin4
 interface join(address urn, uint256 wad) of GemJoin4
+
+types
+  Vat : address Vat
+  Ilk : bytes32
+  Bag : address GemBag
+  Ada : address
+  Lad : address
+  Gem : address GNT
+  BagBalance : uint256
+  JoinBalance : uint256
+  GemBalance : uint256
+
+storage
+  0               |-> Vat
+  1               |-> Ilk
+  2               |-> Gem
+  bags[CALLER_ID] |-> Bag
+
+storage Vat
+  wards[ACCT_ID] |-> May
+  gem[Ilk][urn]  |-> GemBalance => GemBalance + wad
+
+storage Bag
+  0 |-> Ada
+  1 |-> Lad
+  2 |-> Gem
+
+storage Gem
+  balances[Bag]     |-> BagBalance => BagBalance - wad
+  balances[ACCT_ID] |-> JoinBalance => JoinBalance + wad
+
+iff in range int256
+  wad
+  GemBalance + wad
+
+iff in range uint256
+  BagBalance - wad
+  JoinBalance + wad
+
+iff
+  VCallValue == 0
+  VCallDepth < 1023
+  May == 1
+  (ACCT_ID == Ada) or (ACCT_ID == Lad)
+
+if
+  ACCT_ID =/= Bag
+  Bag =/= Gem
+
+calls
+  GemBag.exit
+  Vat.slip
 ```
 
 ```act
@@ -59,7 +111,7 @@ storage Vat
 
 storage Gem
   balances[ACCT_ID] |-> SrcBalance => SrcBalance - wad
-  balances[usr] |-> DstBalance => DstBalance + wad
+  balances[usr]     |-> DstBalance => DstBalance + wad
 
 iff in range int256
   wad
