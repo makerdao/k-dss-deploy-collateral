@@ -64,9 +64,6 @@ storage Gem
   balances[Bag]     |-> BagBalance => BagBalance - wad
   balances[ACCT_ID] |-> JoinBalance => JoinBalance + wad
 
-iff in range int256
-  wad
-
 iff in range uint256
   BagBalance - wad
   JoinBalance + wad
@@ -76,6 +73,7 @@ iff
   VCallValue == 0
   VCallDepth < 1023
   May == 1
+  wad <= maxSInt256
   (ACCT_ID == Ada) or (ACCT_ID == Lad)
 
 if
